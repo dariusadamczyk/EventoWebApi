@@ -11,7 +11,11 @@ namespace Evento.InfraStructure.Repositories
     public class EventRepository : IEventRepository
     {
 
-        private static readonly ISet<Event> _events = new HashSet<Event>();
+        private static readonly ISet<Event> _events = new HashSet<Event>()
+        {
+            new Event(Guid.NewGuid(),"Event1", "Event 1 description", DateTime.UtcNow, DateTime.UtcNow.AddHours(1)),
+            new Event(Guid.NewGuid(),"Event2", "Event 2 description", DateTime.UtcNow.AddHours(2), DateTime.UtcNow.AddHours(3)),
+        };
 
         public async Task<Event> GetAsync(Guid id)
         => await Task.FromResult(_events.SingleOrDefault(x => x.Id == id));
