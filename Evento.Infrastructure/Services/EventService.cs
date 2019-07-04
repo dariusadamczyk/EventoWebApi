@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Evento.Core.Domain;
 using Evento.Core.Repositories;
 using Evento.InfraStructure.DTO;
 
@@ -46,7 +47,13 @@ namespace Evento.InfraStructure.Services
 
         public async Task CreateAync(Guid id, string name, string description, DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            var @event = await _eventRepository.GetAsync(name);
+            if (@event!=null)
+            {
+                throw new Exception("Already exist!");
+            }
+            @event = new Event (id,name,description,startDate,endDate);
+
         }
 
         public async Task DeleteAsync(Guid id)

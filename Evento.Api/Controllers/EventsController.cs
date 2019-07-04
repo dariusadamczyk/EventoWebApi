@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Evento.InfraStructure.Commands.Events;
 using Evento.InfraStructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,12 @@ namespace Evento.Api.Controllers
             var events =  await _eventService.BrowseAsync(name);
 
             return Json(events);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody]CreateEvent command)
+        {
+
         }
     }
 }
