@@ -5,6 +5,7 @@ using AutoMapper;
 using Evento.Core.Domain;
 using Evento.Core.Repositories;
 using Evento.InfraStructure.DTO;
+using Evento.InfraStructure.Extensions;
 
 namespace Evento.InfraStructure.Services
 {
@@ -42,7 +43,10 @@ namespace Evento.InfraStructure.Services
 
         public async Task AddTicketAsync(Guid eventId, int amount, decimal price)
         {
-            throw new NotImplementedException();
+            var @event = await _eventRepository.GetOrFailAsync(eventId);
+
+            @event.AddTicktets(amount, price);
+            await _eventRepository.UpdateAsync(@event);
         }
 
         public async Task CreateAync(Guid id, string name, string description, DateTime startDate, DateTime endDate)
@@ -53,6 +57,7 @@ namespace Evento.InfraStructure.Services
                 throw new Exception("Already exist!");
             }
             @event = new Event (id,name,description,startDate,endDate);
+            await _eventRepository.AddAsync(@event);
 
         }
 
@@ -63,7 +68,18 @@ namespace Evento.InfraStructure.Services
 
         public async Task UpdateAsync(Guid id, string name, string description)
         {
-            throw new NotImplementedException();
+            var @event = await _eventRepository.GetOrFailAsync(id);
+            
+
+            @event = await _eventRepository.GetAsync(name);
+            if (@event == null)
+            {
+                throw new Exception("Already exist!");
+            }
+
+            @event.SetName(name);
+            @event.SetDescription(description);
+            await _eventRepository.UpdateAsync(@event);
         }
     }
 }
