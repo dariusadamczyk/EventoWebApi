@@ -14,6 +14,20 @@ namespace Evento.InfraStructure.Services
             _userRepository = userRepository;
         }
 
+        public async Task LoginAsync(string email, string passowrd)
+        {
+            var user = await _userRepository.GetAsync(email);
+            if (user == null)
+            {
+                throw new Exception($"Invalid credentials.");
+            }
+            if (user.Password != passowrd)
+            {
+                throw new Exception($"Invalid credentials.");
+            }
+
+        }
+
         public async Task RegisterAsync(Guid userId, string email, string name, string passowrd, string role = "user")
         {
             var user = await _userRepository.GetAsync(email);
