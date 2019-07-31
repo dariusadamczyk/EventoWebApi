@@ -39,7 +39,7 @@ namespace Evento.Api.Controllers
         
 
         [HttpPost("login")]
-        public async Task<IActionResult> Post ()
+        public async Task<IActionResult> Post (Login command)
         {
 
             throw new NotImplementedException();
