@@ -35,6 +35,7 @@ namespace Evento.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(x => x.SerializerSettings.Formatting = Formatting.Indented);
+            services.AddAuthorization();
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IEventService, EventService>();
@@ -46,14 +47,14 @@ namespace Evento.Api
             services.Configure<JwtSettings>(Configuration.GetSection("jwt"));
             
 
-            var jwtSettings = Configuration.GetSection(nameof(JwtSettings)).Get<JwtSettings>();
+            var jwtSettings = Configuration.GetSection(nameof(JwtSettings)).Get<IOptions<JwtSettings>>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
-                options.TokenValidationParameters.ValidIssuer = jwtSettings.Issuer;
+                options.TokenValidationParameters.ValidIssuer = jwtSettings.Value.Issuer;
                 options.TokenValidationParameters.ValidateAudience = false;
-                options.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key));
+                options.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Value.Key));
             });
             
           }
