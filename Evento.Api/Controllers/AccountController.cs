@@ -10,10 +10,10 @@ namespace Evento.Api.Controllers
     {
         public AccountController(IUserService userService)
         {
-            UserService = userService;
+            _userService = userService;
         }
 
-        public IUserService UserService { get; }
+        private  IUserService _userService { get; }
 
         [HttpGet]
         public async Task<IActionResult> Get()
@@ -32,17 +32,14 @@ namespace Evento.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Post(Register command)
         {
-            await UserService.RegisterAsync(Guid.NewGuid(), command.Email, command.Name, command.Password, command.Role);
+            await _userService.RegisterAsync(Guid.NewGuid(), command.Email, command.Name, command.Password, command.Role);
 
             return Created("/account", null);
         }
-        
+
 
         [HttpPost("login")]
-        public async Task<IActionResult> Post (Login command)
-        {
-
-            throw new NotImplementedException();
-        }
+        public async Task<IActionResult> Post(Login command)
+        => Json(await _userService.LoginAsync(command.Email, command.Password));
     }
 }
