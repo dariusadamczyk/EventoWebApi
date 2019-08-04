@@ -2,25 +2,24 @@
 using System.Threading.Tasks;
 using Evento.InfraStructure.Commands.Users;
 using Evento.InfraStructure.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Evento.Api.Controllers
 {
-    public class AccountController: Controller
+    public class AccountController : ApiControllerBase
     {
         public AccountController(IUserService userService)
         {
             _userService = userService;
         }
 
-        private  IUserService _userService { get; }
+        private IUserService _userService { get; }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Get()
-        {
-
-            throw new NotImplementedException();
-        }
+        => Json(await _userService.GetAccountAsync(userID));
 
         [HttpGet("tickets")]
         public async Task<IActionResult> GetTickets()

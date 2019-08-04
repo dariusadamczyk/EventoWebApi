@@ -8,6 +8,7 @@ namespace Evento.InfraStructure.Services
     {
         Task RegisterAsync(Guid userId, string email, string name, string passowrd, string role="user");
         Task<TokenDto> LoginAsync(string email, string passowrd);
+        Task<AccountDto> GetAccountAsync(Guid userId);
     }
 }
 
