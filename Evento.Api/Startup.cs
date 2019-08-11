@@ -47,14 +47,14 @@ namespace Evento.Api
             services.Configure<JwtSettings>(Configuration.GetSection("jwt"));
             
 
-            var jwtSettings = Configuration.GetSection(nameof(JwtSettings)).Get<IOptions<JwtSettings>>();
+            var jwtSettings = Configuration.GetSection(nameof(JwtSettings)).Get<JwtSettings>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
-                options.TokenValidationParameters.ValidIssuer = jwtSettings.Value.Issuer;
+                options.TokenValidationParameters.ValidIssuer = jwtSettings.Issuer;
                 options.TokenValidationParameters.ValidateAudience = false;
-                options.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Value.Key));
+                options.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key));
             });
             
           }
