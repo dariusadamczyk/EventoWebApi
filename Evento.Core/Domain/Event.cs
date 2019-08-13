@@ -94,7 +94,7 @@ namespace Evento.Core.Domain
             }
 
             
-            foreach (var ticket in tickets)
+            foreach (var ticket in tickets.Take(amount))
             {
                 ticket.Cancel();
             }
