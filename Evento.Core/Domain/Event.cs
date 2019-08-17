@@ -32,10 +32,21 @@ namespace Evento.Core.Domain
             Id = id;
             SetName(name);
             SetDescription(description);
-            StartDate = startDate;
-            EndDate = endDate;
+            SetDates(startDate, endDate);
             CreatedAd = DateTime.UtcNow;
             UpdateAt = DateTime.UtcNow;
+        }
+
+        public void SetDates(DateTime startDate, DateTime endDate)
+        {
+            if (startDate>=endDate)
+            {
+                throw new Exception($"Event with id {Id} must have a end date grater then start date");
+            }
+
+            StartDate = startDate;
+            EndDate = endDate;
+
         }
 
         public void AddTicktets(int amount, decimal price)
