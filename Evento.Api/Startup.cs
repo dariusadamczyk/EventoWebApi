@@ -19,6 +19,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using NLog.Web;
 
 namespace Evento.Api
 {
@@ -36,6 +37,7 @@ namespace Evento.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(x => x.SerializerSettings.Formatting = Formatting.Indented);
             services.AddAuthorization();
+            services.AddMemoryCache();
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IEventService, EventService>();
@@ -62,6 +64,7 @@ namespace Evento.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -72,7 +75,9 @@ namespace Evento.Api
                 app.UseHsts();
             }
             app.UseAuthentication();
-            
+            env.ConfigureNLog("nlog.config");
+
+          
 
             app.UseHttpsRedirection();
             app.UseMvc();
