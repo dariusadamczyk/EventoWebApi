@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Evento.Core.Repositories;
 using Evento.InfraStructure.Mappers;
 using Evento.InfraStructure.Repositories;
@@ -31,20 +33,24 @@ namespace Evento.Api
         }
 
         public IConfiguration Configuration { get; }
+        public IContainer ApplicationContainer { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(x => x.SerializerSettings.Formatting = Formatting.Indented);
+
+            
+
             services.AddAuthorization();
             services.AddMemoryCache();
-            services.AddScoped<IEventRepository, EventRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IEventService, EventService>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<ITicketService, TicketService>();
+            //services.AddScoped<IEventRepository, EventRepository>();
+            //services.AddScoped<IUserRepository, UserRepository>();
+            //services.AddScoped<IEventService, EventService>();
+            //services.AddScoped<IUserService, UserService>();
+            //services.AddScoped<ITicketService, TicketService>();
             services.AddSingleton(AutoMapperConfig.Initialize());
-            services.AddSingleton<IJwtHandler, JwtHandler>();
+            //services.AddSingleton<IJwtHandler, JwtHandler>();
 
 
             services.Configure<JwtSettings>(Configuration.GetSection("jwt"));
@@ -59,10 +65,24 @@ namespace Evento.Api
                 options.TokenValidationParameters.ValidateAudience = false;
                 options.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key));
             });
+
+            var builder = new ContainerBuilder();
+            builder.Populate(services);
+            builder.RegisterType<UserRepository>().As<IUserRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
+            builder.RegisterType<EventService>().As<IEventService>().InstancePerLifetimeScope();
+            builder.RegisterType<EventRepository>().As<IEventRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<TicketService>().As<ITicketService>().InstancePerLifetimeScope();
+            builder.RegisterType<JwtHandler>().As<IJwtHandler>().SingleInstance();
+            //builder.Register(ctx => ctx.Resolve<AutoMapperConfig>().CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
+            ApplicationContainer = builder.Build();
+
+            return new AutofacServiceProvider(ApplicationContainer);
+
             
           }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime appLifetime)
         {
             
             if (env.IsDevelopment())
@@ -77,8 +97,8 @@ namespace Evento.Api
             app.UseAuthentication();
             env.ConfigureNLog("nlog.config");
 
-          
 
+            appLifetime.ApplicationStopped.Register(() => this.ApplicationContainer.Dispose());
             app.UseHttpsRedirection();
             app.UseMvc();
         }

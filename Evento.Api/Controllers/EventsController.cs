@@ -28,6 +28,7 @@ namespace Evento.Api.Controllers
             if (events==null)
             {
                 events = await _eventService.BrowseAsync(name);
+                _memoryCache.Set("events", events, TimeSpan.FromMinutes(1));
             }
            
 

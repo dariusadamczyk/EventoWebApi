@@ -26,3 +26,101 @@
 2019-08-18 16:39:15.1222 Info Adding target FileTarget(Name=ownFile-web)
 2019-08-18 16:39:15.1239 Info Closing old configuration.
 2019-08-18 16:39:15.2565 Info Found 41 configuration items
+2019-08-20 23:00:38.0040 Info Message Template Auto Format enabled
+2019-08-20 23:00:38.0856 Info Loading assembly: NLog.Web.AspNetCore
+2019-08-20 23:00:38.1700 Info Adding target FileTarget(Name=allfile)
+2019-08-20 23:00:38.1725 Info Adding target FileTarget(Name=ownFile-web)
+2019-08-20 23:00:38.3050 Info Found 41 configuration items
+2019-08-20 23:00:38.3238 Info Configuration initialized.
+2019-08-20 23:00:38.5614 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.6.5.10245. Product version: 4.6.5.
+2019-08-20 23:00:39.4984 Info Configuring from an XML element in /Users/dariuszadamczyk/Documents/develop/gankiewicz/webApiWork/Evento.Api/nlog.config...
+2019-08-20 23:00:39.4984 Info Message Template Auto Format enabled
+2019-08-20 23:00:39.4998 Info Loading assembly: NLog.Web.AspNetCore
+2019-08-20 23:00:39.5013 Info Adding target FileTarget(Name=allfile)
+2019-08-20 23:00:39.5019 Info Adding target FileTarget(Name=ownFile-web)
+2019-08-20 23:00:39.5041 Info Closing old configuration.
+2019-08-20 23:00:39.6301 Info Found 41 configuration items
+2019-08-20 23:30:42.9654 Info Message Template Auto Format enabled
+2019-08-20 23:30:42.9947 Info Loading assembly: NLog.Web.AspNetCore
+2019-08-20 23:30:43.0892 Info Adding target FileTarget(Name=allfile)
+2019-08-20 23:30:43.0918 Info Adding target FileTarget(Name=ownFile-web)
+2019-08-20 23:30:43.2508 Info Found 41 configuration items
+2019-08-20 23:30:43.2740 Info Configuration initialized.
+2019-08-20 23:30:43.3595 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.6.5.10245. Product version: 4.6.5.
+2019-08-20 23:30:43.7503 Info Configuring from an XML element in /Users/dariuszadamczyk/Documents/develop/gankiewicz/webApiWork/Evento.Api/nlog.config...
+2019-08-20 23:30:43.7503 Info Message Template Auto Format enabled
+2019-08-20 23:30:43.7517 Info Loading assembly: NLog.Web.AspNetCore
+2019-08-20 23:30:43.7532 Info Adding target FileTarget(Name=allfile)
+2019-08-20 23:30:43.7539 Info Adding target FileTarget(Name=ownFile-web)
+2019-08-20 23:30:43.7561 Info Closing old configuration.
+2019-08-20 23:30:43.8834 Info Found 41 configuration items
+2019-08-20 23:32:54.3711 Info Message Template Auto Format enabled
+2019-08-20 23:32:54.3954 Info Loading assembly: NLog.Web.AspNetCore
+2019-08-20 23:32:54.4884 Info Adding target FileTarget(Name=allfile)
+2019-08-20 23:32:54.4921 Info Adding target FileTarget(Name=ownFile-web)
+2019-08-20 23:32:54.6464 Info Found 41 configuration items
+2019-08-20 23:32:54.6621 Info Configuration initialized.
+2019-08-20 23:32:54.7352 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.6.5.10245. Product version: 4.6.5.
+2019-08-20 23:32:55.1179 Info Configuring from an XML element in /Users/dariuszadamczyk/Documents/develop/gankiewicz/webApiWork/Evento.Api/nlog.config...
+2019-08-20 23:32:55.1179 Info Message Template Auto Format enabled
+2019-08-20 23:32:55.1194 Info Loading assembly: NLog.Web.AspNetCore
+2019-08-20 23:32:55.1207 Info Adding target FileTarget(Name=allfile)
+2019-08-20 23:32:55.1214 Info Adding target FileTarget(Name=ownFile-web)
+2019-08-20 23:32:55.1233 Info Closing old configuration.
+2019-08-20 23:32:55.2730 Info Found 41 configuration items
+2019-08-20 23:35:45.6917 Info Message Template Auto Format enabled
+2019-08-20 23:35:45.7159 Info Loading assembly: NLog.Web.AspNetCore
+2019-08-20 23:35:45.8070 Info Adding target FileTarget(Name=allfile)
+2019-08-20 23:35:45.8097 Info Adding target FileTarget(Name=ownFile-web)
+2019-08-20 23:35:45.9386 Info Found 41 configuration items
+2019-08-20 23:35:45.9591 Info Configuration initialized.
+2019-08-20 23:35:46.0216 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.6.5.10245. Product version: 4.6.5.
+2019-08-20 23:35:46.3545 Info Configuring from an XML element in /Users/dariuszadamczyk/Documents/develop/gankiewicz/webApiWork/Evento.Api/nlog.config...
+2019-08-20 23:35:46.3545 Info Message Template Auto Format enabled
+2019-08-20 23:35:46.3558 Info Loading assembly: NLog.Web.AspNetCore
+2019-08-20 23:35:46.3584 Info Adding target FileTarget(Name=allfile)
+2019-08-20 23:35:46.3591 Info Adding target FileTarget(Name=ownFile-web)
+2019-08-20 23:35:46.3605 Info Closing old configuration.
+2019-08-20 23:35:46.4716 Info Found 41 configuration items
+2019-08-20 23:36:53.3375 Info Message Template Auto Format enabled
+2019-08-20 23:36:53.3619 Info Loading assembly: NLog.Web.AspNetCore
+2019-08-20 23:36:53.4553 Info Adding target FileTarget(Name=allfile)
+2019-08-20 23:36:53.4664 Info Adding target FileTarget(Name=ownFile-web)
+2019-08-20 23:36:53.6091 Info Found 41 configuration items
+2019-08-20 23:36:53.6285 Info Configuration initialized.
+2019-08-20 23:36:53.6989 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.6.5.10245. Product version: 4.6.5.
+2019-08-20 23:36:54.0249 Info Configuring from an XML element in /Users/dariuszadamczyk/Documents/develop/gankiewicz/webApiWork/Evento.Api/nlog.config...
+2019-08-20 23:36:54.0251 Info Message Template Auto Format enabled
+2019-08-20 23:36:54.0262 Info Loading assembly: NLog.Web.AspNetCore
+2019-08-20 23:36:54.0276 Info Adding target FileTarget(Name=allfile)
+2019-08-20 23:36:54.0283 Info Adding target FileTarget(Name=ownFile-web)
+2019-08-20 23:36:54.0299 Info Closing old configuration.
+2019-08-20 23:36:54.1409 Info Found 41 configuration items
+2019-08-20 23:38:31.6914 Info Message Template Auto Format enabled
+2019-08-20 23:38:31.7458 Info Loading assembly: NLog.Web.AspNetCore
+2019-08-20 23:38:31.8796 Info Adding target FileTarget(Name=allfile)
+2019-08-20 23:38:31.8846 Info Adding target FileTarget(Name=ownFile-web)
+2019-08-20 23:38:32.0745 Info Found 41 configuration items
+2019-08-20 23:38:32.1059 Info Configuration initialized.
+2019-08-20 23:38:32.2673 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.6.5.10245. Product version: 4.6.5.
+2019-08-20 23:38:32.6861 Info Configuring from an XML element in /Users/dariuszadamczyk/Documents/develop/gankiewicz/webApiWork/Evento.Api/nlog.config...
+2019-08-20 23:38:32.6861 Info Message Template Auto Format enabled
+2019-08-20 23:38:32.6876 Info Loading assembly: NLog.Web.AspNetCore
+2019-08-20 23:38:32.6893 Info Adding target FileTarget(Name=allfile)
+2019-08-20 23:38:32.6901 Info Adding target FileTarget(Name=ownFile-web)
+2019-08-20 23:38:32.6920 Info Closing old configuration.
+2019-08-20 23:38:32.8319 Info Found 41 configuration items
+2019-08-20 23:40:42.4035 Info Message Template Auto Format enabled
+2019-08-20 23:40:42.4318 Info Loading assembly: NLog.Web.AspNetCore
+2019-08-20 23:40:42.5360 Info Adding target FileTarget(Name=allfile)
+2019-08-20 23:40:42.5408 Info Adding target FileTarget(Name=ownFile-web)
+2019-08-20 23:40:42.6951 Info Found 41 configuration items
+2019-08-20 23:40:42.7306 Info Configuration initialized.
+2019-08-20 23:40:42.8138 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.6.5.10245. Product version: 4.6.5.
+2019-08-20 23:40:43.1773 Info Configuring from an XML element in /Users/dariuszadamczyk/Documents/develop/gankiewicz/webApiWork/Evento.Api/nlog.config...
+2019-08-20 23:40:43.1773 Info Message Template Auto Format enabled
+2019-08-20 23:40:43.1787 Info Loading assembly: NLog.Web.AspNetCore
+2019-08-20 23:40:43.1802 Info Adding target FileTarget(Name=allfile)
+2019-08-20 23:40:43.1802 Info Adding target FileTarget(Name=ownFile-web)
+2019-08-20 23:40:43.1834 Info Closing old configuration.
+2019-08-20 23:40:43.3107 Info Found 41 configuration items
