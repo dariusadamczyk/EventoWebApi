@@ -44,17 +44,14 @@ namespace Evento.Api
 
             services.AddAuthorization();
             services.AddMemoryCache();
-            //services.AddScoped<IEventRepository, EventRepository>();
-            //services.AddScoped<IUserRepository, UserRepository>();
-            //services.AddScoped<IEventService, EventService>();
-            //services.AddScoped<IUserService, UserService>();
-            //services.AddScoped<ITicketService, TicketService>();
+            
             services.AddSingleton(AutoMapperConfig.Initialize());
-            //services.AddSingleton<IJwtHandler, JwtHandler>();
+            services.AddScoped<IDataInitializer, DataInitializer>();
 
 
             services.Configure<JwtSettings>(Configuration.GetSection("jwt"));
-            
+            services.Configure<AppSettings>(Configuration.GetSection("app"));
+
 
             var jwtSettings = Configuration.GetSection(nameof(JwtSettings)).Get<JwtSettings>();
 
@@ -74,7 +71,8 @@ namespace Evento.Api
             builder.RegisterType<EventRepository>().As<IEventRepository>().InstancePerLifetimeScope();
             builder.RegisterType<TicketService>().As<ITicketService>().InstancePerLifetimeScope();
             builder.RegisterType<JwtHandler>().As<IJwtHandler>().SingleInstance();
-            //builder.Register(ctx => ctx.Resolve<AutoMapperConfig>().CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
+            
+
             ApplicationContainer = builder.Build();
 
             return new AutofacServiceProvider(ApplicationContainer);
@@ -97,10 +95,21 @@ namespace Evento.Api
             app.UseAuthentication();
             env.ConfigureNLog("nlog.config");
 
-
+            SeedData(app);
             appLifetime.ApplicationStopped.Register(() => this.ApplicationContainer.Dispose());
             app.UseHttpsRedirection();
             app.UseMvc();
+        }
+
+        private void SeedData(IApplicationBuilder app)
+        {
+            var settings = app.ApplicationServices.GetService<IOptions<AppSettings>>();
+            if (settings.Value.SeedData)
+            {
+                var dataInitializer = app.ApplicationServices.GetService<IDataInitializer>();
+                dataInitializer.SeedAsync();
+            }
+
         }
     }
 }
