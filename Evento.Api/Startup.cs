@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Evento.Api.Framework;
 using Evento.Core.Repositories;
 using Evento.InfraStructure.Mappers;
 using Evento.InfraStructure.Repositories;
@@ -94,7 +95,7 @@ namespace Evento.Api
             }
             app.UseAuthentication();
             env.ConfigureNLog("nlog.config");
-
+            app.UseErrorHandler();
             SeedData(app);
             appLifetime.ApplicationStopped.Register(() => this.ApplicationContainer.Dispose());
             app.UseHttpsRedirection();

@@ -25,4 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Evento.Infrastructure\Evento.InfraStructure.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Framework\" />
+  </ItemGroup>
 </Project>
