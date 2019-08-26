@@ -23,6 +23,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using NLog.Web;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Evento.Api
 {
@@ -41,7 +42,17 @@ namespace Evento.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(x => x.SerializerSettings.Formatting = Formatting.Indented);
 
-            
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "Evento.API",
+                    Description = "My First ASP.NET Core Web API (with a lot of Piotr Gankiewicz help)",
+                    TermsOfService = "None",
+                    Contact = new Contact() { Name = "Talking Dotnet", Email = "contact@eventoapi.com", Url = "www.eventoapi.com" }
+                });
+            });
 
             services.AddAuthorization();
             services.AddMemoryCache();
@@ -99,6 +110,15 @@ namespace Evento.Api
             SeedData(app);
             appLifetime.ApplicationStopped.Register(() => this.ApplicationContainer.Dispose());
             app.UseHttpsRedirection();
+           
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
+            });
+
             app.UseMvc();
         }
 
