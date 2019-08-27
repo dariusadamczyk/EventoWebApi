@@ -56,7 +56,7 @@ namespace Evento.Api
 
             services.AddAuthorization();
             services.AddMemoryCache();
-            
+            services.AddHealthChecks();
             services.AddSingleton(AutoMapperConfig.Initialize());
             services.AddScoped<IDataInitializer, DataInitializer>();
 
@@ -106,6 +106,7 @@ namespace Evento.Api
             }
             app.UseAuthentication();
             env.ConfigureNLog("nlog.config");
+            app.UseHealthChecks("/health");
             app.UseErrorHandler();
             SeedData(app);
             appLifetime.ApplicationStopped.Register(() => this.ApplicationContainer.Dispose());
