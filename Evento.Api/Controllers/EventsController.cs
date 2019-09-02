@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Evento.Api.Features.Events;
 using Evento.InfraStructure.Commands.Events;
 using Evento.InfraStructure.DTO;
 using Evento.InfraStructure.Services;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -14,11 +16,13 @@ namespace Evento.Api.Controllers
     {
         private readonly IEventService _eventService;
         private readonly IMemoryCache _memoryCache;
+        private readonly IMediator mediator;
 
-        public EventsController(IEventService eventService, IMemoryCache memoryCache)
+        public EventsController(IEventService eventService, IMemoryCache memoryCache, IMediator mediator)
         {
             _eventService = eventService;
             _memoryCache = memoryCache;
+            this.mediator = mediator;
         }
 
         [HttpGet]
@@ -27,7 +31,8 @@ namespace Evento.Api.Controllers
             var events = _memoryCache.Get<IEnumerable<EventDto>>("events");
             if (events==null)
             {
-                events = await _eventService.BrowseAsync(name);
+                //events = await _eventService.BrowseAsync(name);
+                events = await mediator.Send(new BrowseEventsQuery { Name = name });
                 _memoryCache.Set("events", events, TimeSpan.FromMinutes(1));
             }
            
@@ -53,8 +58,9 @@ namespace Evento.Api.Controllers
         public async Task<IActionResult> Post([FromBody]CreateEvent command)
         {
             command.EventId = Guid.NewGuid();
-            await _eventService.CreateAync(command.EventId,command.Name, command.Description, command.StartDate, command.EndDate);
-            await _eventService.AddTicketAsync(command.EventId, command.Tikets, command.Price);
+
+            await mediator.Publish(new AddEventCommand { Command = command });
+     
             return Created($"/events/{command.EventId}",null);
         }
 
