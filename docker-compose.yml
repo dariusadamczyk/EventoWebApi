@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  evento.api:
+    image: ${DOCKER_REGISTRY-}evento
+    build:
+      context: .
+      dockerfile: Evento.Api/Dockerfile

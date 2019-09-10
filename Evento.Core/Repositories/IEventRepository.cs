@@ -5,7 +5,7 @@ using Evento.Core.Domain;
 
 namespace Evento.Core.Repositories
 {
-    public interface IEventRepository
+    public interface IEventRepository: IRepository
     {
         Task<Event> GetAsync(Guid id);
         Task<Event> GetAsync(string name);

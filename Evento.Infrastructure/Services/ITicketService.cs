@@ -5,7 +5,7 @@ using Evento.InfraStructure.DTO;
 
 namespace Evento.InfraStructure.Services
 {
-    public interface ITicketService
+    public interface ITicketService : IService
     {
         Task<IEnumerable<TicketDetailsDto>> GetForUserAsync(Guid userId);
         Task<TicketDto> GetAsync(Guid userId, Guid eventId, Guid ticketId);

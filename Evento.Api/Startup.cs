@@ -9,6 +9,7 @@ using Autofac.Extensions.DependencyInjection;
 using Evento.Api.Features;
 using Evento.Api.Framework;
 using Evento.Core.Repositories;
+using Evento.InfraStructure.IoC;
 using Evento.InfraStructure.Mappers;
 using Evento.InfraStructure.Repositories;
 using Evento.InfraStructure.Services;
@@ -60,33 +61,14 @@ namespace Evento.Api
             services.AddAuthorization();
             services.AddMemoryCache();
             services.AddHealthChecks();
-            services.AddSingleton(AutoMapperConfig.Initialize());
-            services.AddScoped<IDataInitializer, DataInitializer>();
-
-
-            services.Configure<JwtSettings>(Configuration.GetSection("jwt"));
+            
             services.Configure<AppSettings>(Configuration.GetSection("app"));
 
 
-            var jwtSettings = Configuration.GetSection(nameof(JwtSettings)).Get<JwtSettings>();
-
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters.ValidIssuer = jwtSettings.Issuer;
-                options.TokenValidationParameters.ValidateAudience = false;
-                options.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key));
-            });
-
             var builder = new ContainerBuilder();
             builder.Populate(services);
-            builder.RegisterType<UserRepository>().As<IUserRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
-            builder.RegisterType<EventService>().As<IEventService>().InstancePerLifetimeScope();
-            builder.RegisterType<EventRepository>().As<IEventRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<TicketService>().As<ITicketService>().InstancePerLifetimeScope();
-            builder.RegisterType<JwtHandler>().As<IJwtHandler>().SingleInstance();
             
+            builder.RegisterModule(new ContainerModule(Configuration));
 
             builder
                 .RegisterType<Mediator>()
@@ -114,6 +96,15 @@ namespace Evento.Api
             }
 
             ApplicationContainer = builder.Build();
+
+            var jwtSettings = ApplicationContainer.Resolve<JwtSettings>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters.ValidIssuer = jwtSettings.Issuer;
+                options.TokenValidationParameters.ValidateAudience = false;
+                options.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key));
+            });
 
             return new AutofacServiceProvider(ApplicationContainer);
 
@@ -153,8 +144,9 @@ namespace Evento.Api
 
         private void SeedData(IApplicationBuilder app)
         {
-            var settings = app.ApplicationServices.GetService<IOptions<AppSettings>>();
-            if (settings.Value.SeedData)
+            var settings = ApplicationContainer.Resolve<AppSettings>();
+            
+            if (settings.SeedData)
             {
                 var dataInitializer = app.ApplicationServices.GetService<IDataInitializer>();
                 dataInitializer.SeedAsync();

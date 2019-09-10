@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Evento.InfraStructure.Services
 {
-    public interface IDataInitializer
+    public interface IDataInitializer : IService
     {
         Task SeedAsync();
     }
